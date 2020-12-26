@@ -1,4 +1,4 @@
-package com.example.channel_pricing
+package io.epix.channel_pricing
 
 import io.flutter.embedding.android.FlutterActivity
 
