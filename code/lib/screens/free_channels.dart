@@ -55,7 +55,7 @@ class _FreeChannelScreenState extends State<FreeChannelScreen> {
                       .toLowerCase()
                       .indexOf(channelName.toLowerCase()) ==
                   -1) ||
-          ((langFilter != null || langFilter == 'All') &&
+          ((langFilter != null && langFilter != 'All Language') &&
               item['lang']
                       .toString()
                       .toLowerCase()

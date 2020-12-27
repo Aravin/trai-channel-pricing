@@ -1,4 +1,4 @@
-import 'package:channel_pricing/screens/free_channels.dart';
+import 'package:channel_pricing/screens/all_channels.dart';
 import 'package:channel_pricing/shared/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +35,7 @@ class Main extends StatelessWidget {
           caption: TextStyle(fontSize: 14.0),
         ),
       ),
-      home: FreeChannelScreen(),
+      home: AllChannelScreen(),
     );
   }
 }

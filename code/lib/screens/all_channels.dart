@@ -22,7 +22,7 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
   String channelValue = '';
   int totalChannel = 0;
   List<S2Choice<String>> options = [
-    S2Choice<String>(value: 'All', title: 'All'),
+    S2Choice<String>(value: 'All', title: 'All Language'),
     S2Choice<String>(value: 'Assamese', title: 'Assamese'),
     S2Choice<String>(value: 'Bangla', title: 'Bangla'),
     S2Choice<String>(value: 'Bhojpuri', title: 'Bhojpuri'),
@@ -46,20 +46,17 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
     List<Map<String, dynamic>> channelData = channels;
 
     for (var item in channelData) {
-      // if (double.parse(item['cost'].toString()) != 0.0) {
-      //   continue;
-      // }
       if ((channelName != null &&
               item['channelName']
                       .toString()
                       .toLowerCase()
                       .indexOf(channelName.toLowerCase()) ==
                   -1) ||
-          ((langFilter != null || langFilter == 'All') &&
+          ((langFilter != null && langFilter != 'All') &&
               item['lang']
                       .toString()
                       .toLowerCase()
-                      .indexOf(langFilter.toLowerCase()) ==
+                      .indexOf(langFilter?.toLowerCase()) ==
                   -1)) {
         continue;
       }
@@ -228,6 +225,10 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
                   Expanded(
                     flex: 6,
                     child: SmartSelect<String>.single(
+                      choiceStyle: S2ChoiceStyle(
+                        activeColor: kPrimaryColor,
+                        color: kSecondaryColor,
+                      ),
                       title: '',
                       value: langValue,
                       choiceItems: options,

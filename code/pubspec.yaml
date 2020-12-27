@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   velocity_x: ^1.0.1
   smart_select: ^4.3.2
+  expandable: ^4.1.4
   
 dev_dependencies:
   flutter_test:

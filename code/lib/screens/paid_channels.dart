@@ -22,7 +22,7 @@ class _PaidChannelScreenState extends State<PaidChannelScreen> {
   String channelValue = '';
   int totalChannel = 0;
   List<S2Choice<String>> options = [
-    S2Choice<String>(value: 'All', title: 'All'),
+    S2Choice<String>(value: 'All', title: 'All Language'),
     S2Choice<String>(value: 'Assamese', title: 'Assamese'),
     S2Choice<String>(value: 'Bangla', title: 'Bangla'),
     S2Choice<String>(value: 'Bhojpuri', title: 'Bhojpuri'),
@@ -55,7 +55,7 @@ class _PaidChannelScreenState extends State<PaidChannelScreen> {
                       .toLowerCase()
                       .indexOf(channelName.toLowerCase()) ==
                   -1) ||
-          ((langFilter != null || langFilter == 'All') &&
+          ((langFilter != null && langFilter != 'All') &&
               item['lang']
                       .toString()
                       .toLowerCase()
@@ -229,6 +229,7 @@ class _PaidChannelScreenState extends State<PaidChannelScreen> {
                     flex: 6,
                     child: SmartSelect<String>.single(
                       title: '',
+                      placeholder: 'Choose the Language Filter',
                       value: langValue,
                       choiceItems: options,
                       onChange: (state) => setState(() {
