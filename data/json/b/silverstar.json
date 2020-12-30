@@ -1,0 +1,30 @@
+{
+  "broadcaster": "Sliverstar Communications Ltd.",
+  "packages": [
+    {
+      "name": "Bouquet 1",
+      "price": 3.6,
+      "channels": {
+        "Mega TV": 3,
+        "Mega Musiq": 2,
+        "Mega 24": 1
+      }
+    },
+    {
+      "name": "Bouquet 3",
+      "price": 3.45,
+      "channels": {
+        "Mega TV": 3,
+        "Mega Musiq": 2
+      }
+    },
+    {
+      "name": "Bouquet 3",
+      "price": 3.3,
+      "channels": {
+        "Mega TV": 3,
+        "Mega 24": 1
+      }
+    }
+  ]
+}

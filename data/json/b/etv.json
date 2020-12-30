@@ -1,0 +1,44 @@
+{
+  "broadcaster": "Eenadu Television Pvt Limited",
+  "packages": [
+    {
+      "name": "Bouquet - 1",
+      "price": 24,
+      "channels": {
+        "ETV": 17,
+        "ETV Plus": 7,
+        "ETV Cinema": 6,
+        "ETV Life": 1,
+        "ETV Abhiruchi": 2,
+        "ETV Andhra Pradesh": 1,
+        "ETV - Telangana": 1
+      }
+    },
+    {
+      "name": "Bouquet - 2",
+      "price": 29,
+      "channels": {
+        "ETV HD": 19,
+        "ETV Plus HD": 9,
+        "ETV Cinema HD": 8,
+        "ETV Abhiruchi HD": 3,
+        "ETV Life HD": 2,
+        "ETV Andhra Pradesh": 1,
+        "ETV - Telangana": 1
+      }
+    },
+    {
+      "name": "ETV HD Mini Family Pack",
+      "price": 29,
+      "channels": {
+        "ETV HD": 19,
+        "ETV Plus": 7,
+        "ETV Cinema": 6,
+        "ETV Abhiruchi": 2,
+        "ETV Life": 1,
+        "ETV Andhra Pradesh": 1,
+        "ETV - Telangana": 1
+      }
+    }
+  ]
+}

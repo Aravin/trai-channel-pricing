@@ -1,0 +1,39 @@
+{
+  "broadcaster": "TV Today Network Ltd.",
+  "packages": [
+    {
+      "name": "Hindi News Bouquet",
+      "price": 0.5,
+      "channels": {
+        "Aaj Tak": 0.75,
+        "Aaj Tak Tez": 0.25
+      }
+    },
+    {
+      "name": "TVTN News Bouquet",
+      "price": 1,
+      "channels": {
+        "Aaj Tak": 0.75,
+        "Aaj Tak Tez": 0.25,
+        "India Today": 1
+      }
+    },
+    {
+      "name": "Hindi News HD Bouquet",
+      "price": 1,
+      "channels": {
+        "AAJ Tak HD": 1.5,
+        "Aaj Tak Tez": 0.25
+      }
+    },
+    {
+      "name": "TVTN News HD Bouquet",
+      "price": 1.5,
+      "channels": {
+        "AAJ Tak HD": 1.5,
+        "Aaj Tak Tez": 0.25,
+        "India Today": 1
+      }
+    }
+  ]
+}
