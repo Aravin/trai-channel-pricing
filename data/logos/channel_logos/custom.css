@@ -1,0 +1,341 @@
+html {
+	height: 100%;
+}
+body {
+	background: #DEDEDE;
+}
+.seo-title{
+	position:absolute;
+	top: -100px;
+}
+div.language {
+	margin: 5px 0 10px 0;
+	padding: 0;
+}
+div.language > ul {
+	float: right;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #fff
+}
+div.language > ul > li {
+	display: inline;
+	margin-left: 10px;
+	padding: 0;
+}
+div.language > ul > li:first-child {
+	margin-left: 0
+}
+div.language > ul > li > a {
+	font-size: 12px;
+	padding-left: 20px;
+	color: #333
+}
+div.language > ul > li > a:hover, div.language > ul > li > a.active {
+	text-decoration: none;
+	color: #F00
+}
+div.language > ul > li > a.en {
+	background:url(/views/default/images/English.png) no-repeat left -1px;
+}
+div.language > ul > li > a.pt {
+	background:url(/views/default/images/Portugal.png) no-repeat left -1px;
+}
+div.language > ul > li > a.fr {
+	background:url(/views/default/images/Francais.png) no-repeat left -1px;
+}
+div.language > ul > li > a.es {
+	background:url(/views/default/images/Espanol.png) no-repeat left 2px;
+}
+div.language > ul > li > a.it {
+	background:url(/views/default/images/Italiano.png) no-repeat left -1px;
+}
+div.language > ul > li > a.de {
+	background:url(/views/default/images/German.png) no-repeat left 2px;
+}
+div.language > ul > li > a.ja {
+	background:url(/views/default/images/Japan.png) no-repeat left -1px;
+}
+
+/* Customize the navbar links to be fill the entire space of the .navbar */
+.navbar{
+	margin: 10px 0 5px 0
+}
+.navbar .brand {
+	margin-left: 0;
+	padding: 10px 0 0 10px;
+	font-size: 14px
+}
+.navbar .navbar-inner {
+	padding: 0;
+	margin: 0;
+}
+.masthead .navbar .nav {
+	margin: 0;
+	display: table;
+	width: 100%;
+}
+.masthead .navbar .nav li {
+	display: table-cell;
+	width: 1%;
+	float: none;
+}
+.masthead .navbar .nav li a {
+	font-weight: bold;
+	text-align: center;
+	border-left: 1px solid rgba(255,255,255,.75);
+	border-right: 1px solid rgba(0,0,0,.1);
+}
+.masthead .navbar .nav li:first-child a {
+	border-left: 0;
+	border-radius: 5px 0 0 5px;
+}
+.masthead .navbar .nav li:last-child a {
+	border-right: 0;
+	border-radius: 0 5px 5px 0;
+}
+
+.pull-right {
+	padding-right:10px
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+	height: auto !important;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -60px;
+}
+header {
+	margin-top: 5px
+}
+div#logo{
+	float: left;
+	width: 238px;
+	height: 90px;
+	line-height: 90px
+}
+div#ads728x90{
+	float: right;
+	width: 728px;
+	height: 90px;
+	text-align: right;
+	background: #fff;
+}
+@media (max-width: 767px) {
+	div#ads728x90{
+		display: none
+	}
+}
+
+.form-search{
+	margin: 10px 0 0 0;
+	padding:0
+}
+
+/* Set the fixed height of the footer here */
+#push, #footer {
+	height: 60px;
+}
+.push {
+	height: 20px;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+.container {
+	width: auto;
+	max-width: 980px;
+}
+.container .contents{
+	-moz-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 5px 0 10px 0;
+	background: #fff
+}
+.container .credit {
+	margin: 20px 0
+}
+.container h1, .container h2{
+	line-height: 18px
+}
+.container h1 {
+	font-size: 18px
+}
+.container h2 {
+	font-size: 14px
+}
+
+.tooltip{
+	font-size: 14px;
+	font-family:Georgia, "Times New Roman", Times, serif
+}
+/**********************************************/
+#widefront_left{
+	float: left;
+	width: 770px;
+	display: inherit;
+	margin-bottom: 10px;
+}
+@media (max-width: 480px) {
+	#widefront_left{
+		width: 350px;
+	}
+}
+#widefront_left h2.title{
+	margin: 0;
+	padding: 0;
+	font-size: 18px
+}
+#widefront_left h2.title a{
+	font-size: 12px;
+	font-weight: normal;
+	color: #F00
+}
+#widefront_left > ul {
+	margin: 0;
+	padding: 0;
+}
+#widefront_left > ol {
+	margin: 10px;
+	margin-left: 50px;
+	padding: 0;
+}
+#widefront_left > ol > li {
+	list-style: decimal
+}
+#widefront_left > ol > li > a {
+	font-size: 12px;
+	color: #333;
+	display: block
+}
+#widefront_left > ol > li > a:hover {
+	color: #F00;
+	text-decoration: none
+}
+#widefront_left > ul > li {
+	float: left;
+	display: inline;
+	width: 185px;
+	height: 52px;
+	vertical-align: middle;
+	margin: 0 5px 5px 0;
+	padding: 0;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #FAFAFA;
+    background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+    background-repeat: repeat-x;
+    border: 1px solid #D4D4D4;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+}
+#widefront_left > ul > li:hover {
+	background-color: #0CF;
+    background-image: linear-gradient(to bottom, #FFFFFF, #0CF);
+    background-repeat: repeat-x;
+    border: 1px solid #D4D4D4;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+}
+#widefront_left > ul > li img {
+	float: left;
+	margin: 5px;
+	padding: 0;
+}
+#widefront_left > ul > li > a {
+	display: block;
+	font-size: 11px;
+	color: #333;
+	vertical-align: middle;
+	height: 45px;
+	margin-top: 5px
+}
+#widefront_left > ul > li > a:hover {
+	text-decoration: none;
+	color: #F00
+}
+#sidebar_div{
+	float: left;
+	width: 170px;
+	margin: 0 0 10px 10px;
+	vertical-align: top;
+}
+#sidebar_div .box{
+	width: 160px;
+	background: #fff;
+	text-align: center;
+	margin-right: 5px;
+	padding: 10px;
+	border: 1px solid #cacaca
+}
+
+.normal {
+	margin: 10px 10px 20px 53px;
+	padding: 0
+}
+.normal > table {
+	margin-left: 30px;
+	margin: 10px 0 10px 0;
+	border: 1px solid #dadada;
+	border-collapse: collapse
+}
+.normal > table tr {
+	border-bottom: 1px solid #dadada
+}
+.normal > table tr:last-child {
+	border-bottom: none
+}
+.normal > table td, .normal > table th {
+	padding: 5px;
+	font-size: 12px
+}
+.normal > table th {
+	font-weight: 600
+}
+.normal > table td.timecell {
+	background:#FF0;
+	color: #F00;
+	font-weight: bold;
+	text-align: center;
+}
+.normal > table td.livecell {
+	font-style: italic;
+	text-align: center;
+	font-size: 11px;
+	border-right: 1px solid #dadada
+}
+.normal > table td.datecell {
+	text-align: center;
+	font-weight: bold
+}
+.normal > table td.compcell_right {
+	border-left: 1px solid #dadada
+}
+span.midgrey {
+	margin-left: 10px;
+	font-size: 10px;
+	color: #F00
+}
+
+
+
+
+
+
+
+
+

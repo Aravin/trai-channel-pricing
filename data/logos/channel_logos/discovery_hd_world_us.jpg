@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trang này không tồn tại</title>
+<meta name="keywords" content="PT cmd, Trang này không tồn tại" />
+<meta name="description" content="Trang này không tồn tại" />
+<meta name="copyright" content="PTcms" />
+<meta name="author" content="mr.Trieu" />
+<meta name="ROBOTS" content="INDEX,FOLLOW,ARCHIVE" />
+<link href="/static/images/favicon.ico" rel="shortcut icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="/pt-data/cache/css/bootstrap.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="/pt-data/cache/css/theme.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="/pt-data/cache/css/bootstrap-responsive.css" media="screen" />
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="/pt-data/cache/js/html5.js"></script>
+<![endif]-->
+</head>
+<!--[if lt IE 7]><body class="ie ie6"><![endif]-->
+<!--[if IE 7]><body class="ie ie7 http-error"><![endif]-->
+<!--[if IE 8]><body class="ie ie8 http-error"><![endif]-->
+<!--[if IE 9]><body class="ie ie9 http-error"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<body class="http-error">
+<!--<![endif]-->
+<div class="row-fluid"><div class="http-error"><div class="http-error-message"><div class="error-caption"><p>E404!</p></div><div class="error-message"><p>Trang này không tồn tại<p><p class="return-home"><a href="/">Quay lại trang chủ</a></p></div></div></div></div>
+</body>
+</html>
