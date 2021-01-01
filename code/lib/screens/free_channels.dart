@@ -104,7 +104,7 @@ class _FreeChannelScreenState extends State<FreeChannelScreen> {
       appBar: AppBar(
         title: 'Free Channels ($totalChannel)'.text.extraBold.make(),
       ),
-      drawer: CustomAppDrawer(),
+      // drawer: CustomAppDrawer(),
       body: Padding(
         padding: kAppPadding,
         child: Column(

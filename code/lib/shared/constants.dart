@@ -5,6 +5,7 @@ const kPrimaryDartColor = Color(0xFF6152C4);
 const kPrimaryBackgroundColor = Color(0xFFF4EEE7);
 const kSecondaryColor = Color(0xFF84DAA5);
 const kSecondaryDarkColor = Color(0xFF7AC79A);
+const kTertiaryColor = Color(0xFFFC3259);
 
 const kAppPadding = EdgeInsets.all(12.0);
 const kContentPadding = EdgeInsets.all(8.0);

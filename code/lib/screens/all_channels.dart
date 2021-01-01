@@ -4,25 +4,33 @@ import 'package:channel_pricing/models/channels.dart';
 import 'package:channel_pricing/shared/constants.dart';
 import 'package:channel_pricing/shared/text_ellipsis.dart';
 import 'package:channel_pricing/data/channels.dart';
-import 'package:channel_pricing/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import "package:velocity_x/velocity_x.dart";
 import 'package:smart_select/smart_select.dart';
 
 class AllChannelScreen extends StatefulWidget {
+  const AllChannelScreen({Key key, this.screen}) : super(key: key);
+
   @override
   _AllChannelScreenState createState() => _AllChannelScreenState();
+
+  //final
+  final String screen;
 }
 
 class _AllChannelScreenState extends State<AllChannelScreen> {
+  // constants
   TextEditingController _controller = TextEditingController();
   StreamController<List<Channel>> _channelStream =
       StreamController<List<Channel>>();
-  String langValue = 'All';
-  String channelValue = '';
-  int totalChannel = 0;
-  List<S2Choice<String>> options = [
-    S2Choice<String>(value: 'All', title: 'All Language'),
+  List<String> _langValue = [];
+  List<String> _genreValue = [];
+  String _channelValue = '';
+  int _totalChannel = 0;
+  String _streamType = '';
+  String _sortBy = 'sortAZ';
+
+  List<S2Choice<String>> langoptions = [
     S2Choice<String>(value: 'Assamese', title: 'Assamese'),
     S2Choice<String>(value: 'Bangla', title: 'Bangla'),
     S2Choice<String>(value: 'Bhojpuri', title: 'Bhojpuri'),
@@ -40,52 +48,111 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
     S2Choice<String>(value: 'Telugu', title: 'Telugu'),
     S2Choice<String>(value: 'Urdu', title: 'Urdu'),
   ];
+  List<S2Choice<String>> genreOptions = [
+    S2Choice<String>(value: 'Devotional', title: 'Devotional'),
+    S2Choice<String>(value: 'GEC', title: 'GEC'),
+    S2Choice<String>(value: 'Infotainment', title: 'Infotainment'),
+    S2Choice<String>(value: 'Kids', title: 'Kids'),
+    S2Choice<String>(value: 'Miscellaneous', title: 'Miscellaneous'),
+    S2Choice<String>(value: 'Movies', title: 'Movies'),
+    S2Choice<String>(value: 'Music', title: 'Music'),
+    S2Choice<String>(value: 'News', title: 'News'),
+    S2Choice<String>(value: 'Sports', title: 'Sports'),
+  ];
+  Icon searchIcon = Icon(Icons.search);
+  Widget searchWidget = 'All Channels'.text.extraBold.make();
+  bool showBackButton = true;
 
-  void getChannels(String channelName, String langFilter) async {
+  List<Map<String, dynamic>> channelData = List.from(channels);
+
+  void getChannels() async {
     List<Channel> channelList = [];
-    List<Map<String, dynamic>> channelData = channels;
+
+    // sort by
+    if (_sortBy == 'sortAZ') {
+      channelData
+          .sort((a, b) => (a['channelName']).compareTo((b['channelName'])));
+    } else if (_sortBy == 'sortZA') {
+      channelData
+          .sort((a, b) => (b['channelName']).compareTo((a['channelName'])));
+    } else if (_sortBy == 'sortLow') {
+      channelData.sort((a, b) => (a['cost']).compareTo((b['cost'])));
+    } else if (_sortBy == 'sortHigh') {
+      channelData.sort((a, b) => (b['cost']).compareTo((a['cost'])));
+    }
 
     for (var item in channelData) {
-      if ((channelName != null &&
-              item['channelName']
-                      .toString()
-                      .toLowerCase()
-                      .indexOf(channelName.toLowerCase()) ==
-                  -1) ||
-          ((langFilter != null && langFilter != 'All') &&
-              item['lang']
-                      .toString()
-                      .toLowerCase()
-                      .indexOf(langFilter?.toLowerCase()) ==
-                  -1)) {
+      // free screen
+      if (widget.screen == 'Free' &&
+          double.parse(item['cost'].toString()) != 0.0) {
         continue;
       }
 
-      Channel channel = Channel(
-        id: item['sno'],
-        name: item['channelName'],
-        broadcaster: item['broadcaster'],
-        lang: item['lang'],
-        cost: double.parse(item['cost'].toString()),
-        genre: item['genre'],
-        streamType: item['streamType'],
-        airtel: item['airtelChannelNum'],
-        dishTv: item['dishTVChannelNum'],
-        sunDirect: item['sunDirectChannelNum'],
-        tataSky: item['tataSkyChannelNum'],
-        d2h: item['d2hChannelNum'],
-      );
-      channelList.add(channel);
+      // paid screen
+      if (widget.screen == 'Paid' &&
+          double.parse(item['cost'].toString()) == 0.0) {
+        continue;
+      }
+
+      // HD screen
+      if (widget.screen == 'HD' && item['streamType'].toString() != 'HD') {
+        continue;
+      }
+
+      // SD screen
+      if (widget.screen == 'SD' &&
+          item['streamType'] != '' &&
+          item['streamType'].toString() != 'SD') {
+        continue;
+      }
+
+      // channel name filter
+      if ((_channelValue == '' ||
+              item['channelName']
+                      .toLowerCase()
+                      .indexOf(_channelValue.toLowerCase()) !=
+                  -1) &&
+          (_langValue.isEmpty ||
+              _langValue.any((String s) => item['lang']
+                  .split(',')
+                  .any((String s2) => s.toLowerCase() == s2.toLowerCase()))) &&
+          (_genreValue.isEmpty || _genreValue.contains(item['genre'])) &&
+          (_streamType == '' || _streamType == item['streamType'])) {
+        // push data to view
+        Channel channel = Channel(
+          id: item['sno'],
+          name: item['channelName'],
+          broadcaster: item['broadcaster'],
+          lang: item['lang'],
+          cost: double.parse(item['cost'].toString()),
+          genre: item['genre'],
+          streamType: item['streamType'],
+          airtel: item['airtelChannelNum'],
+          dishTv: item['dishTVChannelNum'],
+          sunDirect: item['sunDirectChannelNum'],
+          tataSky: item['tataSkyChannelNum'],
+          d2h: item['d2hChannelNum'],
+        );
+        channelList.add(channel);
+      }
     }
 
     _channelStream.add(channelList);
-    totalChannel = channelList?.length;
+    _totalChannel = channelList?.length;
+  }
+
+  updateTitle() {
+    this.searchWidget = '${widget.screen} Channels (${this._totalChannel})'
+        .text
+        .extraBold
+        .make();
   }
 
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    getChannels(null, null);
+    getChannels();
+    updateTitle();
   }
 
   void dispose() {
@@ -99,150 +166,369 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: 'All Channels ($totalChannel)'.text.extraBold.make(),
+        title: searchWidget,
+        automaticallyImplyLeading: showBackButton,
+        actions: [
+          IconButton(
+            icon: this.searchIcon,
+            tooltip: 'Search',
+            onPressed: () => setState(() {
+              if (this.searchIcon.icon == Icons.search) {
+                this.showBackButton = false;
+                this.searchIcon = Icon(Icons.cancel_outlined);
+                this.searchWidget = TextField(
+                  cursorColor: kPrimaryBackgroundColor,
+                  autofocus: true,
+                  textInputAction: TextInputAction.go,
+                  style: TextStyle(
+                    color: kPrimaryBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Search Channels',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  onChanged: (String value) {
+                    setState(() {
+                      _channelValue = value;
+                    });
+
+                    getChannels();
+                    updateTitle();
+                  },
+                );
+              } else {
+                this.showBackButton = true;
+                this.searchIcon = Icon(Icons.search);
+
+                setState(() {
+                  _channelValue = '';
+                });
+
+                getChannels();
+                updateTitle();
+              }
+            }),
+          ),
+          PopupMenuButton(
+            icon: Icon(Icons.sort),
+            tooltip: 'Sort',
+            elevation: 25.0,
+            offset: Offset(25, 50),
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: 'sortAZ',
+                child: this._sortBy == 'sortAZ'
+                    ? Row(
+                        children: [
+                          Text('Sort by (A-Z)'),
+                          WidthBox(10.0),
+                          Icon(Icons.check_box_sharp, color: kSecondaryColor),
+                        ],
+                      )
+                    : Text('Sort by (A-Z)'),
+              ),
+              PopupMenuItem<String>(
+                value: 'sortZA',
+                child: this._sortBy == 'sortZA'
+                    ? Row(
+                        children: [
+                          Text('Sort by (Z-A)'),
+                          WidthBox(10.0),
+                          Icon(Icons.check_box_sharp, color: kSecondaryColor),
+                        ],
+                      )
+                    : Text('Sort by (Z-A)'),
+              ),
+              PopupMenuItem<String>(
+                value: 'sortLow',
+                child: this._sortBy == 'sortLow'
+                    ? Row(
+                        children: [
+                          Text('Sort by ₹ (Low-High)'),
+                          WidthBox(10.0),
+                          Icon(Icons.check_box_sharp, color: kSecondaryColor),
+                        ],
+                      )
+                    : Text('Sort by ₹ (Low-High)'),
+              ),
+              PopupMenuItem<String>(
+                value: 'sortHigh',
+                child: this._sortBy == 'sortHigh'
+                    ? Row(
+                        children: [
+                          Text('Sort by ₹ (High-Low'),
+                          WidthBox(10.0),
+                          Icon(Icons.check_box_sharp, color: kSecondaryColor),
+                        ],
+                      )
+                    : Text('Sort by ₹ (High-Low)'),
+              ),
+            ],
+            onSelected: (String value) => {
+              setState(() {
+                this._sortBy = value;
+                getChannels();
+              })
+            },
+          )
+        ],
       ),
-      drawer: CustomAppDrawer(),
+      // drawer: CustomAppDrawer(),
       body: Padding(
-        padding: kAppPadding,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 9,
-              child: StreamBuilder<List<Channel>>(
-                stream: _channelStream.stream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Channel>> snapshot) {
-                  if (snapshot.hasData && snapshot.data.length == 0) {
-                    return 'No Channels Found'.text.xl2.makeCentered();
-                  } else if (snapshot.hasData) {
-                    return ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, int i) {
-                        return Container(
-                          margin: kBoxMargin,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            color: kSecondaryDarkColor,
-                          ),
-                          padding: kContentPadding,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+        padding: kContentPadding,
+        child: Container(
+          child: StreamBuilder<List<Channel>>(
+            stream: _channelStream.stream,
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Channel>> snapshot) {
+              if (snapshot.hasData && snapshot.data.length == 0) {
+                return 'No Channels Found'.text.xl2.makeCentered();
+              } else if (snapshot.hasData) {
+                return ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    return Card(
+                      child: Container(
+                        padding: kContentPadding,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                '${truncateWithEllipsis(15, snapshot.data[i].name)}'
+                                    .text
+                                    .xl
+                                    .bold
+                                    .gray700
+                                    .softWrap(false)
+                                    .ellipsis
+                                    .maxLines(1)
+                                    .make(),
+                                '${truncateWithEllipsis(15, snapshot.data[i].lang)}'
+                                    .text
+                                    .xl
+                                    .bold
+                                    .gray600
+                                    .softWrap(false)
+                                    .ellipsis
+                                    .maxLines(1)
+                                    .make(),
+                              ],
+                            ),
+                            HeightBox(5.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                'Genre: ${snapshot.data[i].genre == '' ? 'NA' : snapshot.data[i].genre}'
+                                    .text
+                                    .lg
+                                    .bold
+                                    .gray600
+                                    .softWrap(false)
+                                    .ellipsis
+                                    .maxLines(1)
+                                    .make(),
+                                '₹ ${snapshot.data[i].cost}'
+                                    .text
+                                    .lg
+                                    .bold
+                                    .gray600
+                                    .softWrap(false)
+                                    .ellipsis
+                                    .maxLines(1)
+                                    .make(),
+                              ],
+                            ),
+                            HeightBox(5.0),
+                            '${truncateWithEllipsis(40, snapshot.data[i].broadcaster)}'
+                                .text
+                                .gray500
+                                .softWrap(false)
+                                .ellipsis
+                                .maxLines(1)
+                                .make(),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return snapshot.error.toString().text.makeCentered();
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kSecondaryDarkColor,
+        child: Icon(Icons.filter_list_outlined, color: Colors.white),
+        onPressed: () async {
+          bool reload = await showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            context: context,
+            builder: (BuildContext _context) {
+              return StatefulBuilder(
+                builder: (BuildContext __context,
+                    StateSetter setState /*You can rename this!*/) {
+                  return Container(
+                    padding: kAppPadding,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
+                        // mainAxisSize: MainAxisSize.min,
+                        children: [
+                          'Apply Filter'.text.xl.bold.makeCentered(),
+                          HeightBox(40),
+                          Row(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  '${truncateWithEllipsis(15, snapshot.data[i].name)}'
-                                      .text
-                                      .xl
-                                      .bold
-                                      .white
-                                      .softWrap(false)
-                                      .ellipsis
-                                      .maxLines(1)
-                                      .make(),
-                                  '${truncateWithEllipsis(15, snapshot.data[i].lang)}'
-                                      .text
-                                      .xl
-                                      .bold
-                                      .white
-                                      .softWrap(false)
-                                      .ellipsis
-                                      .maxLines(1)
-                                      .make(),
-                                ],
+                              'Type:'.text.bold.make(),
+                              Radio(
+                                value: '',
+                                groupValue: _streamType,
+                                onChanged: (String value) {
+                                  setState(() {
+                                    _streamType = value;
+                                  });
+                                },
                               ),
-                              HeightBox(5.0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  'Genre: ${snapshot.data[i].genre == '' ? 'NA' : snapshot.data[i].genre}'
-                                      .text
-                                      .lg
-                                      .bold
-                                      .white
-                                      .softWrap(false)
-                                      .ellipsis
-                                      .maxLines(1)
-                                      .make(),
-                                  'Cost: Rs.${snapshot.data[i].cost}'
-                                      .text
-                                      .lg
-                                      .bold
-                                      .white
-                                      .softWrap(false)
-                                      .ellipsis
-                                      .maxLines(1)
-                                      .make(),
-                                ],
+                              'All'.text.make().pOnly(right: 20),
+                              Radio(
+                                value: 'HD',
+                                groupValue: _streamType,
+                                onChanged: (String value) {
+                                  setState(() {
+                                    _streamType = value;
+                                  });
+                                },
                               ),
-                              HeightBox(5.0),
-                              '${truncateWithEllipsis(40, snapshot.data[i].broadcaster)}'
-                                  .text
-                                  .white
-                                  .softWrap(false)
-                                  .ellipsis
-                                  .maxLines(1)
-                                  .make(),
+                              'HD'.text.make().pOnly(right: 20),
+                              Radio(
+                                value: 'SD',
+                                groupValue: _streamType,
+                                onChanged: (String value) {
+                                  setState(() {
+                                    _streamType = value;
+                                  });
+                                },
+                              ),
+                              'SD'.text.make().pOnly(right: 20),
                             ],
                           ),
-                        );
-                      },
-                    );
-                  } else if (snapshot.hasError) {
-                    return snapshot.error.toString().text.makeCentered();
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
+                          HeightBox(30),
+                          Row(
+                            children: [
+                              'Language:'.text.bold.make(),
+                              Expanded(
+                                child: SmartSelect<String>.multiple(
+                                  modalType: S2ModalType.popupDialog,
+                                  modalHeaderStyle: S2ModalHeaderStyle(
+                                    backgroundColor: kSecondaryColor,
+                                  ),
+                                  modalConfirm: true,
+                                  modalFilter: true,
+                                  modalHeader: true,
+                                  modalTitle: 'Language',
+                                  title: '',
+                                  value: _langValue,
+                                  choiceItems: langoptions,
+                                  onChange: (state) => setState(() {
+                                    _langValue = state.value;
+                                  }),
+                                ),
+                              ),
+                            ],
+                          ),
+                          HeightBox(30),
+                          Row(
+                            children: [
+                              'Genre:'.text.bold.make(),
+                              Expanded(
+                                child: SmartSelect<String>.multiple(
+                                  modalType: S2ModalType.popupDialog,
+                                  modalHeaderStyle: S2ModalHeaderStyle(
+                                    backgroundColor: kSecondaryColor,
+                                  ),
+                                  modalConfirm: true,
+                                  modalFilter: true,
+                                  modalHeader: true,
+                                  modalTitle: 'Genre',
+                                  title: '',
+                                  value: _genreValue,
+                                  choiceItems: genreOptions,
+                                  onChange: (state) => setState(() {
+                                    _genreValue = state.value;
+                                  }),
+                                ),
+                              ),
+                            ],
+                          ),
+                          HeightBox(30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              RaisedButton(
+                                child: 'APPLY'.text.white.bold.make(),
+                                color: kPrimaryColor,
+                                onPressed: () async => {
+                                  setState(() {
+                                    // getChannels();
+                                    // updateTitle();
+                                    Navigator.pop(__context, true);
+                                  })
+                                },
+                              ),
+                              RaisedButton(
+                                child: 'RESET'.text.white.bold.make(),
+                                color: kSecondaryDarkColor,
+                                onPressed: () => {
+                                  setState(() {
+                                    _streamType = '';
+                                    _langValue = [];
+                                    _genreValue = [];
+                                  }),
+                                  Navigator.pop(__context, false),
+                                },
+                              ),
+                              RaisedButton(
+                                child: 'CANCEL'.text.white.bold.make(),
+                                color: kTertiaryColor,
+                                onPressed: () => {
+                                  Navigator.maybePop(context, false),
+                                },
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Search Channel',
-                        suffixIcon: Icon(Icons.search_outlined),
-                      ),
-                      onChanged: (String value) async {
-                        setState(() {
-                          channelValue = value;
-                        });
-                        getChannels(value, langValue);
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    flex: 6,
-                    child: SmartSelect<String>.single(
-                      choiceStyle: S2ChoiceStyle(
-                        activeColor: kPrimaryColor,
-                        color: kSecondaryColor,
-                      ),
-                      title: '',
-                      value: langValue,
-                      choiceItems: options,
-                      onChange: (state) => setState(() {
-                        langValue = state.value;
-                        getChannels(channelValue, langValue);
-                      }),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
+              );
+            },
+          );
+
+          if (reload != null && reload) {
+            setState(() {
+              updateTitle();
+              getChannels();
+            });
+          }
+        },
       ),
     );
   }

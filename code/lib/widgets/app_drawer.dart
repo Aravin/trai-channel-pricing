@@ -1,4 +1,4 @@
-import 'package:channel_pricing/screens/all_channels.dart';
+import 'package:channel_pricing/screens/channels.dart';
 import 'package:channel_pricing/screens/free_channels.dart';
 import 'package:channel_pricing/screens/paid_channels.dart';
 import 'package:channel_pricing/shared/constants.dart';
@@ -28,38 +28,39 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
             ),
           ),
           ListTile(
-            title: Text('All Channels'),
-            leading: Icon(Icons.tv),
+            title: Text('Channels'),
+            leading: Icon(Icons.live_tv_sharp),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (ctxt) => AllChannelScreen()),
+                MaterialPageRoute(builder: (ctxt) => ChannelsScreen()),
               );
             },
           ),
           ListTile(
-            title: Text('Paid Channels'),
-            leading: Icon(Icons.tv),
+            title: Text('Packages'),
+            leading: Icon(Icons.card_giftcard),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (ctxt) => PaidChannelScreen()),
+                MaterialPageRoute(builder: (ctxt) => ChannelsScreen()),
               );
             },
           ),
-          ListTile(
-            title: Text('Free Channels'),
-            leading: Icon(Icons.tv),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (ctxt) => FreeChannelScreen()),
-              );
-            },
-          ),
+          Divider(),
+          // ListTile(
+          //   title: Text('Free Channels'),
+          //   leading: Icon(Icons.tv),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (ctxt) => FreeChannelScreen()),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );

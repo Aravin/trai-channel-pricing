@@ -104,7 +104,7 @@ class _PaidChannelScreenState extends State<PaidChannelScreen> {
       appBar: AppBar(
         title: 'Paid Channels ($totalChannel)'.text.extraBold.make(),
       ),
-      drawer: CustomAppDrawer(),
+      // drawer: CustomAppDrawer(),
       body: Padding(
         padding: kAppPadding,
         child: Column(

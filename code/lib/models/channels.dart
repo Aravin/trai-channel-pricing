@@ -60,4 +60,8 @@ class Channel {
       'd2h': d2h,
     };
   }
+
+  double getPrice() {
+    return this.cost;
+  }
 }
