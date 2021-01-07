@@ -1,9 +1,12 @@
 import 'package:channel_pricing/screens/channels.dart';
-import 'package:channel_pricing/screens/free_channels.dart';
-import 'package:channel_pricing/screens/paid_channels.dart';
+import 'package:channel_pricing/screens/download.dart';
+import 'package:channel_pricing/screens/packages.dart';
 import 'package:channel_pricing/shared/constants.dart';
+import 'package:channel_pricing/widgets/app_divider.dart';
 import 'package:flutter/material.dart';
 import "package:velocity_x/velocity_x.dart";
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppDrawer extends StatefulWidget {
   @override
@@ -11,6 +14,23 @@ class CustomAppDrawer extends StatefulWidget {
 }
 
 class _CustomAppDrawerState extends State<CustomAppDrawer> {
+  _openPlayStore() async {
+    const url =
+        'https://play.google.com/store/apps/details?id=io.epix.channel_pricing';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _shareApp() async {
+    Share.share(
+        'https://play.google.com/store/apps/details?id=io.epix.channel_pricing',
+        subject:
+            'Share the Application - TRAI Channel and Package Pricing Information');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -45,20 +65,36 @@ class _CustomAppDrawerState extends State<CustomAppDrawer> {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (ctxt) => ChannelsScreen()),
+                MaterialPageRoute(builder: (ctxt) => PackagesScreen()),
               );
             },
           ),
-          Divider(),
+          ListTile(
+            title: Text('Downloads'),
+            leading: Icon(Icons.download_sharp),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (ctxt) => DownloadScreen()),
+              );
+            },
+          ),
+          CustomDivider(),
+          ListTile(
+            title: Text('Share App'),
+            leading: Icon(Icons.share),
+            onTap: () {
+              Navigator.pop(context);
+              _shareApp();
+            },
+          ),
           // ListTile(
-          //   title: Text('Free Channels'),
-          //   leading: Icon(Icons.tv),
+          //   title: Text('Rate Us'),
+          //   leading: Icon(Icons.star),
           //   onTap: () {
           //     Navigator.pop(context);
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (ctxt) => FreeChannelScreen()),
-          //     );
+          //     _openPlayStore();
           //   },
           // ),
         ],

@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:channel_pricing/models/channels.dart';
 import 'package:channel_pricing/shared/constants.dart';
 import 'package:channel_pricing/shared/text_ellipsis.dart';
@@ -8,17 +10,17 @@ import 'package:flutter/material.dart';
 import "package:velocity_x/velocity_x.dart";
 import 'package:smart_select/smart_select.dart';
 
-class AllChannelScreen extends StatefulWidget {
-  const AllChannelScreen({Key key, this.screen}) : super(key: key);
+class ChannelListScreen extends StatefulWidget {
+  const ChannelListScreen({Key key, this.screen}) : super(key: key);
 
   @override
-  _AllChannelScreenState createState() => _AllChannelScreenState();
+  _ChannelListScreenState createState() => _ChannelListScreenState();
 
   //final
   final String screen;
 }
 
-class _AllChannelScreenState extends State<AllChannelScreen> {
+class _ChannelListScreenState extends State<ChannelListScreen> {
   // constants
   TextEditingController _controller = TextEditingController();
   StreamController<List<Channel>> _channelStream =
@@ -290,6 +292,32 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
                   physics: BouncingScrollPhysics(),
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
+                    // if (i != 0 && i % 4 == 0) {
+                    //   return Column(
+                    //     children: <Widget>[
+                    //       Card(
+                    //         child: Container(
+                    //           margin: EdgeInsets.only(bottom: 20.0),
+                    //           child: AdmobBanner(
+                    //             adUnitId: getBannerAdUnitId(),
+                    //             adSize: AdmobBannerSize.FULL_BANNER,
+                    //             listener: (AdmobAdEvent event,
+                    //                 Map<String, dynamic> args) {
+                    //               print([event, args, 'Banner']);
+                    //             },
+                    //             onBannerCreated:
+                    //                 (AdmobBannerController controller) {
+                    //               // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+                    //               // Normally you don't need to worry about disposing this yourself, it's handled.
+                    //               // If you need direct access to dispose, this is your guy!
+                    //               // controller.dispose();
+                    //             },
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   );
+                    // }
                     return Card(
                       child: Container(
                         padding: kContentPadding,
@@ -531,5 +559,14 @@ class _AllChannelScreenState extends State<AllChannelScreen> {
         },
       ),
     );
+  }
+
+  String getBannerAdUnitId() {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-2191548178499350/3728607813';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-2191548178499350/3728607813';
+    }
+    return null;
   }
 }

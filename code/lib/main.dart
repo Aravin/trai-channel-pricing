@@ -1,8 +1,11 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:channel_pricing/screens/channels.dart';
 import 'package:channel_pricing/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Admob.initialize();
   runApp(Main());
 }
 

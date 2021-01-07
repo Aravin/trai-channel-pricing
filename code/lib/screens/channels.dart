@@ -1,4 +1,4 @@
-import 'package:channel_pricing/screens/all_channels.dart';
+import 'package:channel_pricing/screens/channel_list.dart';
 import 'package:channel_pricing/shared/constants.dart';
 import 'package:channel_pricing/widgets/app_divider.dart';
 import 'package:channel_pricing/widgets/app_drawer.dart';
@@ -21,7 +21,7 @@ class ChannelsScreen extends StatelessWidget {
           children: [
             GestureDetector(
               child: Card(
-                color: kPrimaryBackgroundColor,
+                // color: kPrimaryBackgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -35,33 +35,32 @@ class ChannelsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (ctxt) => AllChannelScreen(screen: 'All')),
+                      builder: (ctxt) => ChannelListScreen(screen: 'All')),
                 )
               },
             ),
             GestureDetector(
               child: Card(
-                color: kPrimaryBackgroundColor,
+                // color: kPrimaryBackgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     'Paid Channels'.text.xl.bold.makeCentered(),
                     CustomDivider(),
-                    '332 Channels'.text.makeCentered()
+                    '331 Channels'.text.makeCentered()
                   ],
                 ),
               ),
               onTap: () => {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (ctxt) => AllChannelScreen(screen: 'Paid')),
-                )
+                    context,
+                    MaterialPageRoute(
+                        builder: (ctxt) => ChannelListScreen(screen: 'Paid')))
               },
             ),
             GestureDetector(
               child: Card(
-                color: kPrimaryBackgroundColor,
+                // color: kPrimaryBackgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -75,13 +74,13 @@ class ChannelsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (ctxt) => AllChannelScreen(screen: 'Free')),
+                      builder: (ctxt) => ChannelListScreen(screen: 'Free')),
                 )
               },
             ),
             GestureDetector(
               child: Card(
-                color: kPrimaryBackgroundColor,
+                // color: kPrimaryBackgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -95,13 +94,13 @@ class ChannelsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (ctxt) => AllChannelScreen(screen: 'HD')),
+                      builder: (ctxt) => ChannelListScreen(screen: 'HD')),
                 )
               },
             ),
             GestureDetector(
               child: Card(
-                color: kPrimaryBackgroundColor,
+                // color: kPrimaryBackgroundColor,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -115,7 +114,7 @@ class ChannelsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (ctxt) => AllChannelScreen(screen: 'SD')),
+                      builder: (ctxt) => ChannelListScreen(screen: 'SD')),
                 )
               },
             ),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "630044871945",
+    "project_id": "trai-channel-pricing",
+    "storage_bucket": "trai-channel-pricing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630044871945:android:2b6563d208670b2558d7d8",
+        "android_client_info": {
+          "package_name": "com.epix.trai_channel_price"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630044871945-n6pq2h0ptvla3ct6iqclkgtvfmoe6r4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0kdHsrE1oxwLXj6QSEVrkBarT6DmizaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630044871945-n6pq2h0ptvla3ct6iqclkgtvfmoe6r4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

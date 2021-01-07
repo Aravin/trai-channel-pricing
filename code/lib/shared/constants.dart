@@ -9,5 +9,6 @@ const kTertiaryColor = Color(0xFFFC3259);
 
 const kAppPadding = EdgeInsets.all(12.0);
 const kContentPadding = EdgeInsets.all(8.0);
+const kImagePadding = EdgeInsets.all(15.0);
 
 const kBoxMargin = EdgeInsets.symmetric(vertical: 2.0, horizontal: 0.0);
