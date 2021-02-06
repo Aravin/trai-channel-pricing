@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:channel_pricing/models/package.dart';
 import 'package:channel_pricing/screens/package_details.dart';
 import 'package:channel_pricing/shared/constants.dart';
@@ -35,6 +37,15 @@ class _PackageListScreenState extends State<PackageListScreen> {
   String packNetwork = discovery['broadcaster'];
   List<Package> _packageList = [];
   int _totalPackage = 0;
+
+  String getBannerAdUnitId() {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-2191548178499350/3728607813';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-2191548178499350/3728607813';
+    }
+    return null;
+  }
 
   void getPackages() async {
     switch (widget.screen) {
@@ -126,6 +137,28 @@ class _PackageListScreenState extends State<PackageListScreen> {
                   physics: BouncingScrollPhysics(),
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
+                    if (i != 0 && i % 4 == 0) {
+                      return Card(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20.0),
+                          child: AdmobBanner(
+                            adUnitId: getBannerAdUnitId(),
+                            adSize: AdmobBannerSize.FULL_BANNER,
+                            listener: (AdmobAdEvent event,
+                                Map<String, dynamic> args) {
+                              print([event, args, 'Banner']);
+                            },
+                            onBannerCreated:
+                                (AdmobBannerController controller) {
+                              // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+                              // Normally you don't need to worry about disposing this yourself, it's handled.
+                              // If you need direct access to dispose, this is your guy!
+                              // controller.dispose();
+                            },
+                          ),
+                        ),
+                      );
+                    }
                     return Card(
                       child: GestureDetector(
                         child: Container(

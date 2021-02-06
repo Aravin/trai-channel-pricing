@@ -292,32 +292,28 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                   physics: BouncingScrollPhysics(),
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int i) {
-                    // if (i != 0 && i % 4 == 0) {
-                    //   return Column(
-                    //     children: <Widget>[
-                    //       Card(
-                    //         child: Container(
-                    //           margin: EdgeInsets.only(bottom: 20.0),
-                    //           child: AdmobBanner(
-                    //             adUnitId: getBannerAdUnitId(),
-                    //             adSize: AdmobBannerSize.FULL_BANNER,
-                    //             listener: (AdmobAdEvent event,
-                    //                 Map<String, dynamic> args) {
-                    //               print([event, args, 'Banner']);
-                    //             },
-                    //             onBannerCreated:
-                    //                 (AdmobBannerController controller) {
-                    //               // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
-                    //               // Normally you don't need to worry about disposing this yourself, it's handled.
-                    //               // If you need direct access to dispose, this is your guy!
-                    //               // controller.dispose();
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   );
-                    // }
+                    if (i != 0 && i % 4 == 0) {
+                      return Card(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20.0),
+                          child: AdmobBanner(
+                            adUnitId: getBannerAdUnitId(),
+                            adSize: AdmobBannerSize.FULL_BANNER,
+                            listener: (AdmobAdEvent event,
+                                Map<String, dynamic> args) {
+                              print([event, args, 'Banner']);
+                            },
+                            onBannerCreated:
+                                (AdmobBannerController controller) {
+                              // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+                              // Normally you don't need to worry about disposing this yourself, it's handled.
+                              // If you need direct access to dispose, this is your guy!
+                              // controller.dispose();
+                            },
+                          ),
+                        ),
+                      );
+                    }
                     return Card(
                       child: Container(
                         padding: kContentPadding,
