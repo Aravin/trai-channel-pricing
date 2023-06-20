@@ -22,7 +22,7 @@ import 'package:channel_pricing/data/packages/turner.dart';
 import 'package:channel_pricing/data/packages/tvtoday.dart';
 
 class PackageListScreen extends StatefulWidget {
-  const PackageListScreen({Key key, this.screen}) : super(key: key);
+  const PackageListScreen({Key? key, required this.screen}) : super(key: key);
 
   @override
   _PackageListScreenState createState() => _PackageListScreenState();
@@ -33,12 +33,13 @@ class PackageListScreen extends StatefulWidget {
 class _PackageListScreenState extends State<PackageListScreen> {
   StreamController<List<Package>> _packageStream =
       StreamController<List<Package>>();
-  List<Map<String, dynamic>> packData = List.from(discovery['packages']);
-  String packNetwork = discovery['broadcaster'];
+  List<Map<String, dynamic>> packData =
+      List.from(discovery['packages'] as Iterable<String>);
+  String packNetwork = discovery['broadcaster'] as String;
   List<Package> _packageList = [];
   int _totalPackage = 0;
 
-  String getBannerAdUnitId() {
+  String? getBannerAdUnitId() {
     if (Platform.isIOS) {
       return 'ca-app-pub-2191548178499350/3728607813';
     } else if (Platform.isAndroid) {
@@ -50,48 +51,48 @@ class _PackageListScreenState extends State<PackageListScreen> {
   void getPackages() async {
     switch (widget.screen) {
       case 'discovery':
-        packData = List.from(discovery['packages']);
-        packNetwork = discovery['broadcaster'];
+        packData = List.from(discovery['packages'] as Iterable<String>);
+        packNetwork = discovery['broadcaster'] as String;
         break;
       case 'etv':
-        packData = List.from(etv['packages']);
-        packNetwork = etv['broadcaster'];
+        packData = List.from(etv['packages'] as Iterable<String>);
+        packNetwork = etv['broadcaster'] as String;
         break;
       case 'mavis':
-        packData = List.from(mavis['packages']);
-        packNetwork = mavis['broadcaster'];
+        packData = List.from(mavis['packages'] as Iterable<String>);
+        packNetwork = mavis['broadcaster'] as String;
         break;
       case 'ndtv':
-        packData = List.from(ndtv['packages']);
-        packNetwork = ndtv['broadcaster'];
+        packData = List.from(ndtv['packages'] as Iterable<String>);
+        packNetwork = ndtv['broadcaster'] as String;
         break;
       case 'odisha':
-        packData = List.from(odisha['packages']);
-        packNetwork = odisha['broadcaster'];
+        packData = List.from(odisha['packages'] as Iterable<String>);
+        packNetwork = odisha['broadcaster'] as String;
         break;
       case 'raj':
-        packData = List.from(raj['packages']);
-        packNetwork = raj['broadcaster'];
+        packData = List.from(raj['packages'] as Iterable<String>);
+        packNetwork = raj['broadcaster'] as String;
         break;
       case 'silverstar':
-        packData = List.from(silverstar['packages']);
-        packNetwork = silverstar['broadcaster'];
+        packData = List.from(silverstar['packages'] as Iterable<String>);
+        packNetwork = silverstar['broadcaster'] as String;
         break;
       case 'sony':
-        packData = List.from(sony['packages']);
-        packNetwork = sony['broadcaster'];
+        packData = List.from(sony['packages'] as Iterable<String>);
+        packNetwork = sony['broadcaster'] as String;
         break;
       case 'times':
-        packData = List.from(times['packages']);
-        packNetwork = times['broadcaster'];
+        packData = List.from(times['packages'] as Iterable<String>);
+        packNetwork = times['broadcaster'] as String;
         break;
       case 'turner':
-        packData = List.from(turner['packages']);
-        packNetwork = turner['broadcaster'];
+        packData = List.from(turner['packages'] as Iterable<String>);
+        packNetwork = turner['broadcaster'] as String;
         break;
       case 'tvtoday':
-        packData = List.from(tvtoday['packages']);
-        packNetwork = tvtoday['broadcaster'];
+        packData = List.from(tvtoday['packages'] as Iterable<String>);
+        packNetwork = tvtoday['broadcaster'] as String;
         break;
     }
     for (var i in packData) {
@@ -103,7 +104,7 @@ class _PackageListScreenState extends State<PackageListScreen> {
     }
 
     _packageStream.add(_packageList);
-    _totalPackage = _packageList?.length;
+    _totalPackage = _packageList.length;
   }
 
   void initState() {
@@ -130,23 +131,23 @@ class _PackageListScreenState extends State<PackageListScreen> {
             stream: _packageStream.stream,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Package>> snapshot) {
-              if (snapshot.hasData && snapshot.data.length == 0) {
+              if (snapshot.hasData && snapshot.data!.length == 0) {
                 return 'No Packages Found'.text.xl2.makeCentered();
               } else if (snapshot.hasData) {
                 return ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: snapshot.data.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int i) {
-                    if (i != 0 && i % 4 == 0) {
+                    if (i != 0 && i % 10 == 0 || i == 1) {
                       return Card(
                         child: Container(
                           margin: EdgeInsets.only(bottom: 20.0),
                           child: AdmobBanner(
-                            adUnitId: getBannerAdUnitId(),
+                            adUnitId: getBannerAdUnitId()!,
                             adSize: AdmobBannerSize.FULL_BANNER,
                             listener: (AdmobAdEvent event,
-                                Map<String, dynamic> args) {
-                              print([event, args, 'Banner']);
+                                Map<String, dynamic>? args) {
+                              // print([event, args, 'Banner']);
                             },
                             onBannerCreated:
                                 (AdmobBannerController controller) {
@@ -166,7 +167,7 @@ class _PackageListScreenState extends State<PackageListScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              '${snapshot.data[i].name}'
+                              '${snapshot.data![i].name}'
                                   .text
                                   .lg
                                   .bold
@@ -179,7 +180,7 @@ class _PackageListScreenState extends State<PackageListScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  '${snapshot.data[i].channels.length} Channels'
+                                  '${snapshot.data![i].channels.length} Channels'
                                       .text
                                       .lg
                                       .bold
@@ -188,7 +189,7 @@ class _PackageListScreenState extends State<PackageListScreen> {
                                       .ellipsis
                                       .maxLines(1)
                                       .make(),
-                                  '₹ ${snapshot.data[i].price}'
+                                  '₹ ${snapshot.data![i].price}'
                                       .text
                                       .lg
                                       .bold
@@ -216,9 +217,9 @@ class _PackageListScreenState extends State<PackageListScreen> {
                             MaterialPageRoute(
                                 builder: (ctxt) => PackageDetailScreen(
                                       network: this.packNetwork,
-                                      packageName: snapshot.data[i].name,
-                                      packPrice: snapshot.data[i].price,
-                                      channelList: snapshot.data[i].channels,
+                                      packageName: snapshot.data![i].name,
+                                      packPrice: snapshot.data![i].price,
+                                      channelList: snapshot.data![i].channels,
                                     )),
                           );
                         },

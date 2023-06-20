@@ -9,7 +9,10 @@ class PackageDetailScreen extends StatelessWidget {
   final Map<String, num> channelList;
 
   const PackageDetailScreen(
-      {this.network, this.packageName, this.packPrice, this.channelList});
+      {required this.network,
+      required this.packageName,
+      required this.packPrice,
+      required this.channelList});
 
   @override
   Widget build(BuildContext context) {

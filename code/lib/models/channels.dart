@@ -13,18 +13,18 @@ class Channel {
   final String d2h;
 
   Channel({
-    this.id,
-    this.name,
-    this.broadcaster,
-    this.lang,
-    this.cost,
-    this.genre,
-    this.streamType,
-    this.airtel,
-    this.dishTv,
-    this.sunDirect,
-    this.tataSky,
-    this.d2h,
+    required this.id,
+    required this.name,
+    required this.broadcaster,
+    required this.lang,
+    required this.cost,
+    required this.genre,
+    required this.streamType,
+    required this.airtel,
+    required this.dishTv,
+    required this.sunDirect,
+    required this.tataSky,
+    required this.d2h,
   });
 
   factory Channel.fromJSON(Map<String, dynamic> json) {

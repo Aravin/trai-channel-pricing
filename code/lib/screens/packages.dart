@@ -71,8 +71,9 @@ class PackagesScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (ctxt) =>
-                            PackageListScreen(screen: networkData[i]['id'])),
+                      builder: (ctxt) => PackageListScreen(
+                          screen: networkData[i]['id'] as String),
+                    ),
                   )
                 },
               );

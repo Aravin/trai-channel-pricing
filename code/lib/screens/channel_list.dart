@@ -8,10 +8,10 @@ import 'package:channel_pricing/shared/text_ellipsis.dart';
 import 'package:channel_pricing/data/channels.dart';
 import 'package:flutter/material.dart';
 import "package:velocity_x/velocity_x.dart";
-import 'package:smart_select/smart_select.dart';
+import 'package:awesome_select/awesome_select.dart';
 
 class ChannelListScreen extends StatefulWidget {
-  const ChannelListScreen({Key key, this.screen}) : super(key: key);
+  const ChannelListScreen({Key? key, required this.screen}) : super(key: key);
 
   @override
   _ChannelListScreenState createState() => _ChannelListScreenState();
@@ -140,7 +140,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
     }
 
     _channelStream.add(channelList);
-    _totalChannel = channelList?.length;
+    _totalChannel = channelList.length;
   }
 
   updateTitle() {
@@ -160,7 +160,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
   void dispose() {
     _controller.dispose();
     _channelStream.close();
-    _channelStream = null;
+    // _channelStream = null;
     super.dispose();
   }
 
@@ -285,23 +285,23 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
             stream: _channelStream.stream,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Channel>> snapshot) {
-              if (snapshot.hasData && snapshot.data.length == 0) {
+              if (snapshot.hasData && snapshot.data?.length == 0) {
                 return 'No Channels Found'.text.xl2.makeCentered();
               } else if (snapshot.hasData) {
                 return ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: snapshot.data.length,
+                  itemCount: snapshot.data?.length,
                   itemBuilder: (BuildContext context, int i) {
-                    if (i != 0 && i % 4 == 0) {
+                    if (i != 0 && i % 10 == 0 || i == 1) {
                       return Card(
                         child: Container(
                           margin: EdgeInsets.only(bottom: 20.0),
                           child: AdmobBanner(
-                            adUnitId: getBannerAdUnitId(),
+                            adUnitId: getBannerAdUnitId()!,
                             adSize: AdmobBannerSize.FULL_BANNER,
                             listener: (AdmobAdEvent event,
-                                Map<String, dynamic> args) {
-                              print([event, args, 'Banner']);
+                                Map<String, dynamic>? args) {
+                              // print([event, args, 'Banner']);
                             },
                             onBannerCreated:
                                 (AdmobBannerController controller) {
@@ -324,7 +324,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                '${truncateWithEllipsis(15, snapshot.data[i].name)}'
+                                '${truncateWithEllipsis(15, snapshot.data![i].name)}'
                                     .text
                                     .xl
                                     .bold
@@ -333,7 +333,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                                     .ellipsis
                                     .maxLines(1)
                                     .make(),
-                                '${truncateWithEllipsis(15, snapshot.data[i].lang)}'
+                                '${truncateWithEllipsis(15, snapshot.data![i].lang)}'
                                     .text
                                     .xl
                                     .bold
@@ -349,7 +349,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                'Genre: ${snapshot.data[i].genre == '' ? 'NA' : snapshot.data[i].genre}'
+                                'Genre: ${snapshot.data![i].genre == '' ? 'NA' : snapshot.data![i].genre}'
                                     .text
                                     .lg
                                     .bold
@@ -358,7 +358,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                                     .ellipsis
                                     .maxLines(1)
                                     .make(),
-                                '₹ ${snapshot.data[i].cost}'
+                                '₹ ${snapshot.data![i].cost}'
                                     .text
                                     .lg
                                     .bold
@@ -370,7 +370,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                               ],
                             ),
                             HeightBox(5.0),
-                            '${truncateWithEllipsis(40, snapshot.data[i].broadcaster)}'
+                            '${truncateWithEllipsis(40, snapshot.data![i].broadcaster)}'
                                 .text
                                 .gray500
                                 .softWrap(false)
@@ -424,9 +424,9 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                               Radio(
                                 value: '',
                                 groupValue: _streamType,
-                                onChanged: (String value) {
+                                onChanged: (String? value) {
                                   setState(() {
-                                    _streamType = value;
+                                    _streamType = value!;
                                   });
                                 },
                               ),
@@ -434,9 +434,9 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                               Radio(
                                 value: 'HD',
                                 groupValue: _streamType,
-                                onChanged: (String value) {
+                                onChanged: (String? value) {
                                   setState(() {
-                                    _streamType = value;
+                                    _streamType = value!;
                                   });
                                 },
                               ),
@@ -444,9 +444,9 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                               Radio(
                                 value: 'SD',
                                 groupValue: _streamType,
-                                onChanged: (String value) {
+                                onChanged: (String? value) {
                                   setState(() {
-                                    _streamType = value;
+                                    _streamType = value!;
                                   });
                                 },
                               ),
@@ -468,7 +468,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                                   modalHeader: true,
                                   modalTitle: 'Language',
                                   title: '',
-                                  value: _langValue,
+                                  selectedValue: _langValue,
                                   choiceItems: langoptions,
                                   onChange: (state) => setState(() {
                                     _langValue = state.value;
@@ -492,7 +492,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                                   modalHeader: true,
                                   modalTitle: 'Genre',
                                   title: '',
-                                  value: _genreValue,
+                                  selectedValue: _genreValue,
                                   choiceItems: genreOptions,
                                   onChange: (state) => setState(() {
                                     _genreValue = state.value;
@@ -505,9 +505,9 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              RaisedButton(
+                              ElevatedButton(
                                 child: 'APPLY'.text.white.bold.make(),
-                                color: kPrimaryColor,
+                                // color: kPrimaryColor,
                                 onPressed: () async => {
                                   setState(() {
                                     // getChannels();
@@ -516,9 +516,9 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                                   })
                                 },
                               ),
-                              RaisedButton(
+                              ElevatedButton(
                                 child: 'RESET'.text.white.bold.make(),
-                                color: kSecondaryDarkColor,
+                                // color: kSecondaryDarkColor,
                                 onPressed: () => {
                                   setState(() {
                                     _streamType = '';
@@ -528,9 +528,9 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
                                   Navigator.pop(__context, false),
                                 },
                               ),
-                              RaisedButton(
+                              ElevatedButton(
                                 child: 'CANCEL'.text.white.bold.make(),
-                                color: kTertiaryColor,
+                                // color: kTertiaryColor,
                                 onPressed: () => {
                                   Navigator.maybePop(context, false),
                                 },
@@ -546,7 +546,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
             },
           );
 
-          if (reload != null && reload) {
+          if (reload) {
             setState(() {
               updateTitle();
               getChannels();
@@ -557,7 +557,7 @@ class _ChannelListScreenState extends State<ChannelListScreen> {
     );
   }
 
-  String getBannerAdUnitId() {
+  String? getBannerAdUnitId() {
     if (Platform.isIOS) {
       return 'ca-app-pub-2191548178499350/3728607813';
     } else if (Platform.isAndroid) {

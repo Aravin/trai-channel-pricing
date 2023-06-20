@@ -3,7 +3,7 @@ class Package {
   final double price;
   final Map<String, num> channels;
 
-  Package({this.name, this.price, this.channels});
+  Package({required this.name, required this.price, required this.channels});
 
   factory Package.fromJson(Map<String, dynamic> json) {
     return Package(

@@ -32,16 +32,16 @@ class DownloadScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        RaisedButton(
-                          color: kTertiaryColor,
+                        ElevatedButton(
+                          // color: kTertiaryColor,
                           child: 'PDF'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
                                 'https://drive.google.com/file/d/1IgBvwGCEhunYt0cbscR_bmQsEkO--kV2/view?usp=sharing');
                           },
                         ),
-                        RaisedButton(
-                          color: kPrimaryColor,
+                        ElevatedButton(
+                          // color: kPrimaryColor,
                           child: 'Excel'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
@@ -64,16 +64,16 @@ class DownloadScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        RaisedButton(
-                          color: kTertiaryColor,
+                        ElevatedButton(
+                          // color: kTertiaryColor,
                           child: 'PDF'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
                                 'https://drive.google.com/file/d/1QJc_nS-ATmq6SnkO85Mdz3L8HXsP7Iu_/view?usp=sharing');
                           },
                         ),
-                        RaisedButton(
-                          color: kPrimaryColor,
+                        ElevatedButton(
+                          // color: kPrimaryColor,
                           child: 'Excel'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
@@ -96,16 +96,16 @@ class DownloadScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        RaisedButton(
-                          color: kTertiaryColor,
+                        ElevatedButton(
+                          // color: kTertiaryColor,
                           child: 'PDF'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
                                 'https://drive.google.com/file/d/1fSQ-Kw32LHZLfjeYrR4gT7GovjCXVcTr/view?usp=sharing');
                           },
                         ),
-                        RaisedButton(
-                          color: kPrimaryColor,
+                        ElevatedButton(
+                          // color: kPrimaryColor,
                           child: 'Excel'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
@@ -128,8 +128,8 @@ class DownloadScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        RaisedButton(
-                          color: kTertiaryColor,
+                        ElevatedButton(
+                          // color: kTertiaryColor,
                           child: 'PDF'.text.bold.white.make(),
                           onPressed: () {
                             _openFile(
